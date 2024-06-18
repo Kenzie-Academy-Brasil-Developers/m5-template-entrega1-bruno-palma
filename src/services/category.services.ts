@@ -1,5 +1,17 @@
-export class CategoryServices {
-  create() {}
+import { prisma } from "../database/prisma";
+import {
+  TCategory,
+  TCreateCategoryData,
+} from "../interfaces/category.interfaces";
 
-  delete(id: number) {}
+export class CategoryServices {
+  async create(data: TCreateCategoryData): Promise<TCategory> {
+    const newCategory = await prisma.category.create({ data });
+
+    return newCategory;
+  }
+
+  async delete(id: number) {
+    return await prisma.category.delete({ where: { id } });
+  }
 }

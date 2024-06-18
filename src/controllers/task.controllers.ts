@@ -2,23 +2,43 @@ import { Request, Response } from "express";
 import { TaskServices } from "../services/task.services";
 
 export class TaskControllers {
-  create(request: Request, response: Response) {
+  async create(request: Request, response: Response) {
     const taskServices = new TaskServices();
+
+    const task = await taskServices.create(request.body);
+
+    return response.status(201).json(task);
   }
 
-  findMany(request: Request, response: Response) {
+  async findMany(request: Request, response: Response) {
     const taskServices = new TaskServices();
+
+    const tasks = await taskServices.findMany(request.query.category as string);
+
+    return response.status(200).json(tasks);
   }
 
-  findOne(request: Request, response: Response) {
+  async findOne(request: Request, response: Response) {
     const taskServices = new TaskServices();
+
+    const task = await taskServices.findOne(+request.params.id);
+
+    return response.status(200).json(task);
   }
 
-  update(request: Request, response: Response) {
+  async update(request: Request, response: Response) {
     const taskServices = new TaskServices();
+
+    const task = await taskServices.update(+request.params.id, request.body);
+
+    return response.status(200).json(task);
   }
 
-  delete(request: Request, response: Response) {
+  async delete(request: Request, response: Response) {
     const taskServices = new TaskServices();
+
+    await taskServices.delete(+request.params.id);
+
+    return response.status(204).json();
   }
 }

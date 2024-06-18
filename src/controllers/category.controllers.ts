@@ -2,11 +2,19 @@ import { Request, Response } from "express";
 import { CategoryServices } from "../services/category.services";
 
 export class CategoryControllers {
-  create(request: Request, response: Response) {
+  async create(request: Request, response: Response) {
     const categoryServices = new CategoryServices();
+
+    const category = await categoryServices.create(request.body);
+
+    return response.status(201).json(category);
   }
 
-  delete(request: Request, response: Response) {
+  async delete(request: Request, response: Response) {
     const categoryServices = new CategoryServices();
+
+    await categoryServices.delete(+request.params.id);
+
+    return response.status(204).json();
   }
 }

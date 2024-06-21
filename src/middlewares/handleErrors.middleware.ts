@@ -12,7 +12,7 @@ export class HandleErrors {
     if (error instanceof AppError) {
       return response.status(error.statusCode).json({ message: error.message });
     } else if (error instanceof ZodError) {
-      return response.status(400).json(error);
+      return response.status(400).json({ errors: error.errors });
     } else {
       return response.status(500).json({ message: "Internal server error." });
     }

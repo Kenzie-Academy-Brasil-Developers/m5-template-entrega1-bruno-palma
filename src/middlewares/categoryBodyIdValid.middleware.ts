@@ -11,7 +11,7 @@ export class CategoryBodyIdValid {
     const id = request.body.categoryId;
 
     if (!id) {
-      next();
+      return next();
     }
 
     const category = await prisma.category.findFirst({ where: { id: +id } });

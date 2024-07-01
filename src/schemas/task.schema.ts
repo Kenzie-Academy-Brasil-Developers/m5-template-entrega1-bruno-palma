@@ -7,12 +7,14 @@ export const taskSchema = z.object({
   content: z.string().min(1),
   finished: z.boolean(),
   categoryId: z.number().positive().nullish(),
+  userId: z.number().positive(),
 });
 
 export const createTaskSchema = taskSchema.pick({
   title: true,
   content: true,
   categoryId: true,
+  userId: true,
 });
 
 export const updateTaskSchema = taskSchema.omit({ id: true }).partial();

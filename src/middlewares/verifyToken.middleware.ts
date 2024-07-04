@@ -10,7 +10,7 @@ export class verifyToken {
       throw new AppError(401, "Token is required");
     }
 
-    const token = authorization?.replace("Bearer", "");
+    const token = authorization?.replace("Bearer ", "");
 
     const secret = process.env.JWT_SECRET as string;
 

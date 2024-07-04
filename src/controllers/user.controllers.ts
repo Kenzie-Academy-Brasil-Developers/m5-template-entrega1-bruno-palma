@@ -9,4 +9,22 @@ export class UserControllers {
 
     return response.status(201).json(user);
   }
+
+  async login(request: Request, response: Response) {
+    const userServices = new UserServices();
+
+    const user = await userServices.login(request.body);
+
+    return response.status(200).json(user);
+  }
+
+  async autologin(request: Request, response: Response) {
+    const userServices = new UserServices();
+
+    const { id } = response.locals.decode;
+
+    const user = await userServices.autologin(id);
+
+    return response.status(200).json(user);
+  }
 }

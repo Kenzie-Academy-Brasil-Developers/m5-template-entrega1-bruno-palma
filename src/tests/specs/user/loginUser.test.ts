@@ -1,4 +1,4 @@
-import { hash } from "bcryptjs";
+import { hash } from "bcrypt";
 import { describe, expect, it } from "vitest";
 import { prisma } from "../../../database/prisma";
 import { userMock } from "../../mocks/user.mocks";

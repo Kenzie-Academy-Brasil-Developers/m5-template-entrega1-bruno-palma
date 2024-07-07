@@ -14,10 +14,11 @@ export const createTaskSchema = taskSchema.pick({
   title: true,
   content: true,
   categoryId: true,
-  userId: true,
 });
 
-export const updateTaskSchema = taskSchema.omit({ id: true }).partial();
+export const updateTaskSchema = taskSchema
+  .omit({ id: true, userId: true })
+  .partial();
 
 export const findTaskSchema = taskSchema
   .omit({ categoryId: true })

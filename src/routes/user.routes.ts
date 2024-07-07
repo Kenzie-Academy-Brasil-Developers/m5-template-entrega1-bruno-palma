@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { UserControllers } from "../controllers/user.controllers";
-import { verifyToken } from "../middlewares/verifyToken.middleware";
+import { VerifyToken } from "../middlewares/verifyToken.middleware";
 import { ValidateRequest } from "../middlewares/validateRequest.middleware";
 import { createUserSchema, loginUserSchema } from "../schemas/user.schema";
 import { IsEmailValid } from "../middlewares/isEmailValid.middleware";
@@ -24,4 +24,4 @@ userRouter.post(
   IsPasswordValid.execute,
   userControllers.login
 );
-userRouter.get("/profile", verifyToken.execute, userControllers.autologin);
+userRouter.get("/profile", VerifyToken.execute, userControllers.autologin);

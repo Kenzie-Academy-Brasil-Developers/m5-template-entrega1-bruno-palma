@@ -8,15 +8,17 @@ import {
 import { findTaskSchema } from "../schemas/task.schema";
 
 export class TaskServices {
-  async create(data: TCreateTaskData): Promise<TTask> {
-    const newTask = await prisma.task.create({ data });
+  async create(data: TCreateTaskData, userId: number): Promise<TTask> {
+    const newTask = { ...data, userId: userId };
 
-    return newTask;
+    const task = await prisma.task.create({ data: newTask });
+
+    return task;
   }
 
-  async findMany(search?: string): Promise<TFindTaskData[]> {
+  async findMany(userId: number, search?: string): Promise<TFindTaskData[]> {
     const tasks = await prisma.task.findMany({
-      where: { ...(search && { category: { name: search } }) },
+      where: { userId, ...(search && { category: { name: search } }) },
       include: { category: true },
     });
 

@@ -8,5 +8,4 @@ export const categorySchema = z.object({
 
 export const createCategorySchema = categorySchema.pick({
   name: true,
-  userId: true,
 });

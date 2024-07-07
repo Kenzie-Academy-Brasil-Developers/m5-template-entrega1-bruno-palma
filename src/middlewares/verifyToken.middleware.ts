@@ -2,7 +2,7 @@ import { NextFunction, Request, Response } from "express";
 import { AppError } from "../errors/AppError";
 import jwt from "jsonwebtoken";
 
-export class verifyToken {
+export class VerifyToken {
   static execute(request: Request, response: Response, next: NextFunction) {
     const authorization = request.headers.authorization;
 

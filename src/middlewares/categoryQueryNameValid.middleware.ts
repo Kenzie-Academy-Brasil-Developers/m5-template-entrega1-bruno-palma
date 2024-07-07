@@ -10,6 +10,8 @@ export class CategoryQueryNameValid {
   ) {
     const categoryName = request.query.category as string | null;
 
+    const { id } = response.locals.decode;
+
     if (!categoryName) {
       next();
     } else {
@@ -19,6 +21,8 @@ export class CategoryQueryNameValid {
 
       if (!category) {
         throw new AppError(404, "Category not found");
+      } else if (category.userId != id) {
+        throw new AppError(403, "This user is not the category owner");
       }
 
       next();

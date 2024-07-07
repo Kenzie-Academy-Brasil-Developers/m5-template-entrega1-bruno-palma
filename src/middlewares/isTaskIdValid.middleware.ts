@@ -8,12 +8,16 @@ export class IsTaskIdValid {
     response: Response,
     next: NextFunction
   ) {
-    const id = request.params.id;
+    const taskId = request.params.id;
 
-    const task = await prisma.task.findFirst({ where: { id: +id } });
+    const { id } = response.locals.decode;
+
+    const task = await prisma.task.findFirst({ where: { id: +taskId } });
 
     if (!task) {
       throw new AppError(404, "Task not found");
+    } else if (task.userId != id) {
+      throw new AppError(403, "This user is not the task owner");
     }
 
     next();

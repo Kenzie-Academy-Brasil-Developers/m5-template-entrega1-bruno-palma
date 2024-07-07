@@ -5,7 +5,9 @@ export class TaskControllers {
   async create(request: Request, response: Response) {
     const taskServices = new TaskServices();
 
-    const task = await taskServices.create(request.body);
+    const { id } = response.locals.decode;
+
+    const task = await taskServices.create(request.body, id);
 
     return response.status(201).json(task);
   }
@@ -13,7 +15,12 @@ export class TaskControllers {
   async findMany(request: Request, response: Response) {
     const taskServices = new TaskServices();
 
-    const tasks = await taskServices.findMany(request.query.category as string);
+    const { id } = response.locals.decode;
+
+    const tasks = await taskServices.findMany(
+      id,
+      request.query.category as string
+    );
 
     return response.status(200).json(tasks);
   }

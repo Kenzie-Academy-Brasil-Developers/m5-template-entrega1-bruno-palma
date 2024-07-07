@@ -5,10 +5,12 @@ import {
 } from "../interfaces/category.interfaces";
 
 export class CategoryServices {
-  async create(data: TCreateCategoryData): Promise<TCategory> {
-    const newCategory = await prisma.category.create({ data });
+  async create(data: TCreateCategoryData, userId: number): Promise<TCategory> {
+    const newCategory = { ...data, userId: userId };
 
-    return newCategory;
+    const category = await prisma.category.create({ data: newCategory });
+
+    return category;
   }
 
   async delete(id: number) {
